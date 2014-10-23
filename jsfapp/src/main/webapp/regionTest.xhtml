@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<body>
+	<h:head>
+	</h:head>
+
+	<h:body>
+		<h:form>
+			<h:commandLink value="index" action="index" />
+		</h:form>
+		<br/>
+		
+		<h2>Con executes individuales:</h2>
+		<h:form>
+			<h:panelGrid>
+				<h:selectOneMenu id="type" value="#{regionTestBean.type}">
+					<f:selectItem itemValue="Roses" itemLabel="Roses" />
+					<f:selectItem itemValue="Tulips" itemLabel="Tulips" />
+					<f:selectItem itemValue="Irises" itemLabel="Irises" />
+				</h:selectOneMenu>
+				<h:selectOneMenu id="size" value="#{regionTestBean.size}">
+					<f:selectItem itemValue="Small" itemLabel="Small" />
+					<f:selectItem itemValue="Large" itemLabel="Large" />
+					<f:selectItem itemValue="Extra Large" itemLabel="Extra Large" />
+				</h:selectOneMenu>
+				<h:selectOneMenu id="vase" value="#{regionTestBean.vase}">
+					<f:selectItem itemValue="Standard vase" itemLabel="Standard vase" />
+					<f:selectItem itemValue="Premium vase" itemLabel="Premium vase" />
+					<f:selectItem itemValue="No vase" itemLabel="No vase" />
+				</h:selectOneMenu>
+				<h:commandButton value="Buy Flowers!">
+					<a4j:ajax event="click" execute="type size vase" />
+				</h:commandButton>
+			</h:panelGrid>
+			<a4j:outputPanel ajaxRendered="true" layout="block">
+				<h:panelGrid>
+					<h:outputText value="#{regionTestBean.type}" />
+					<h:outputText value="#{regionTestBean.size}" />
+					<h:outputText value="#{regionTestBean.vase}" />
+				</h:panelGrid>
+			</a4j:outputPanel>
+		</h:form>
+		
+		<h2>Con a4j:region:</h2>
+		<h:form>
+			<a4j:region>
+				<h:panelGrid>
+					<h:selectOneMenu id="type" value="#{regionTestBean.type}">
+						<f:selectItem itemValue="Roses" itemLabel="Roses" />
+						<f:selectItem itemValue="Tulips" itemLabel="Tulips" />
+						<f:selectItem itemValue="Irises" itemLabel="Irises" />
+					</h:selectOneMenu>
+					<h:selectOneMenu id="size" value="#{regionTestBean.size}">
+						<f:selectItem itemValue="Small" itemLabel="Small" />
+						<f:selectItem itemValue="Large" itemLabel="Large" />
+						<f:selectItem itemValue="Extra Large" itemLabel="Extra Large" />
+					</h:selectOneMenu>
+					<h:selectOneMenu id="vase" value="#{regionTestBean.vase}">
+						<f:selectItem itemValue="Standard vase" itemLabel="Standard vase" />
+						<f:selectItem itemValue="Premium vase" itemLabel="Premium vase" />
+						<f:selectItem itemValue="No vase" itemLabel="No vase" />
+					</h:selectOneMenu>
+					<h:commandButton value="Buy Flowers!">
+						<a4j:ajax event="click" />
+					</h:commandButton>
+				</h:panelGrid>
+			</a4j:region>
+			<a4j:outputPanel ajaxRendered="true" layout="block">
+				<h:panelGrid>
+					<h:outputText value="#{regionTestBean.type}" />
+					<h:outputText value="#{regionTestBean.size}" />
+					<h:outputText value="#{regionTestBean.vase}" />
+				</h:panelGrid>
+			</a4j:outputPanel>
+		</h:form>
+	</h:body>
+</body>
+</html>

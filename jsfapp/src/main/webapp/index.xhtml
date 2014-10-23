@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<body>
+	<h:head>
+	</h:head>
+
+	<h:body>
+		<rich:panel header="Rich Panel">
+			<p>Panel de RichFaces !!!</p>
+			<h:form prependId="false">
+				<h:outputLabel value="Nombre:" for="nameInput" />
+				<h:inputText id="nameInput" value="#{richBean.name}">
+					<a4j:ajax event="keyup" render="output" />
+				</h:inputText>
+				<h:panelGroup id="output">
+					<h:outputText value="Hola #{richBean.name}!"
+						rendered="#{not empty richBean.name}" />
+				</h:panelGroup>
+			</h:form>
+		</rich:panel>
+	</h:body>
+
+	<h:form>
+		<br />
+		<h:commandLink value="regionTest" action="regionTest" />
+		<br />
+		<h:commandLink value="queueTest" action="queueTest" />
+	</h:form>
+</body>
+</html>

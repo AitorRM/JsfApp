@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<body>
+	<h:head>
+	</h:head>
+
+	<h:body>
+		<h:form>
+			<h:commandLink value="index" action="index" />
+		</h:form>
+		<br />
+
+		<h1>a4j:queue</h1>
+
+		
+
+		<h2>Ejemplo</h2>
+		<h:form>
+			<a4j:status startText="Working..."
+				startStyle="background-color: #ffA500;
+							font-weight:bold;
+							position: absolute;
+							left: 520px;
+							top: 1px;
+							width: 100px;" />
+			<h:panelGrid>
+				<h:panelGrid>
+					<h:outputText
+						value="Sin Queue:" />
+					<h:inputText value="#{queueTestBean.text1}">
+						<a4j:ajax event="keyup" render="upper1"
+							listener="#{queueTestBean.upperCase1}" />
+					</h:inputText>
+				</h:panelGrid>
+				<h:outputText id="upper1" value="#{queueTestBean.text1}" />
+			</h:panelGrid>
+		</h:form>
+		<h:form>
+			<a4j:status startText="Working..."
+				startStyle="background-color: #ffA500;
+							font-weight:bold;
+							position: absolute;
+							left: 520px;
+							top: 1px;
+							width: 100px;" />
+			<a4j:queue requestDelay="500" />
+			<h:panelGrid>
+				<h:panelGrid>
+					<h:outputText
+						value="Con Queue:" />
+					<h:inputText value="#{queueTestBean.text2}">
+						<a4j:ajax event="keyup" render="upper2"
+							listener="#{queueTestBean.upperCase2}" />
+					</h:inputText>
+				</h:panelGrid>
+				<h:outputText id="upper2" value="#{queueTestBean.text2}" />
+			</h:panelGrid>
+		</h:form>
+		<h2>Log</h2>
+		<h:form>
+			<a4j:log level="DEBUG"/>
+		</h:form>
+	</h:body>
+</body>
+</html>
