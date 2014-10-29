@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<body>
+	<h:head>
+		<script type="text/javascript">
+			function focusEndInput(element) {
+				element.focus();
+				var length = element.value.length;
+			    element.setSelectionRange(length, length);
+			};
+		</script>
+	</h:head>
+
+	<h:body>
+		<h:form>
+			<h:commandLink value="index" action="index" />
+		</h:form>
+		<br/>
+		
+		<h2>Table, filter, sorter, click event and popup.</h2>
+		
+		<!-- ################### -->
+		<!-- Table -->
+		<!-- ################### -->
+		<h:form>
+			<rich:dataTable id="myTable"
+				rowKeyVar="row" sortMode="single" rows="10"
+		 		cellpadding="0" cellspacing="0" border="0"
+		 		onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+				onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+		 		value="#{tableTestBean.rowList}"
+				var="user" style="width:100%;">
+				
+				<a4j:ajax event="rowclick"
+					render="panelUserInfo formPopupUserInfo"
+		 			oncomplete="#{rich:component('popupUserInfo')}.show();"
+		 			listener="#{selectedUserBean.selectUser}" />
+		 			
+		 		<!-- User Id Column -->
+				<rich:column id="userIdColumn"
+					filterExpression="#{fn:containsIgnoreCase(user.userId, filterColumnsBean.column1)}"
+					sortBy="#{user.userId}">
+					
+					<f:facet name="header">
+						<h:commandLink value="User Id " style="color: black;" action="#{sorterColumnsBean.switchColumn1}">
+							<a4j:ajax render="sortLabel1" />
+							<h:outputLabel id="sortLabel1" value=" (#{sorterColumnsBean.column1})" />
+							<rich:componentControl target="myTable" operation="sort">
+								<f:param name="direction" value="userIdColumn" />
+								<f:param value="" />
+								<f:param name="reset" value="true" />
+							</rich:componentControl>
+						</h:commandLink>
+						<br/>
+						<h:inputText value="#{filterColumnsBean.column1}" id="inputColumn1" 
+			           	    onclick="event.stopPropagation();">
+			           	    <a4j:ajax event="keyup" render="myTable@body datascroller" ignoreDupResponses="true" oncomplete="focusEndInput(#{rich:element('inputColumn1')})"/>
+			           	</h:inputText>
+					</f:facet>
+		
+					<h:outputText value="#{user.userId}" />
+				</rich:column>
+				
+		 		<!-- User Name Column -->
+				<rich:column id="userNameColumn"
+					filterExpression="#{fn:containsIgnoreCase(user.userName, filterColumnsBean.column2)}"
+					sortBy="#{user.userName}">
+					
+					<f:facet name="header">
+						<h:commandLink value="User Name " style="color: black;" action="#{sorterColumnsBean.switchColumn2}">
+							<a4j:ajax render="sortLabel2" />
+							<h:outputLabel id="sortLabel2" value=" (#{sorterColumnsBean.column2})" />
+							<rich:componentControl target="myTable" operation="sort">
+								<f:param name="direction" value="userNameColumn" />
+								<f:param value="" />
+								<f:param name="reset" value="true" />
+							</rich:componentControl>
+						</h:commandLink>
+						<br/>
+						<h:inputText value="#{filterColumnsBean.column2}" id="inputColumn2" 
+			           	    onclick="event.stopPropagation();">
+			           	    <a4j:ajax event="keyup" render="myTable@body datascroller" ignoreDupResponses="true" oncomplete="focusEndInput(#{rich:element('inputColumn2')})"/>
+			           	</h:inputText>
+					</f:facet>
+		
+					<h:outputText value="#{user.userName}" />
+				</rich:column>
+				
+				<!-- First Name Column -->
+				<rich:column id="firstNameColumn"
+					filterExpression="#{fn:containsIgnoreCase(user.firstName, filterColumnsBean.column3)}"
+					sortBy="#{user.firstName}">
+					
+					<f:facet name="header">
+						<h:commandLink value="First Name " style="color: black;" action="#{sorterColumnsBean.switchColumn3}">
+							<a4j:ajax render="sortLabel3" />
+							<h:outputLabel id="sortLabel3" value=" (#{sorterColumnsBean.column3})" />
+							<rich:componentControl target="myTable" operation="sort">
+								<f:param name="direction" value="firstNameColumn" />
+								<f:param value="" />
+								<f:param name="reset" value="true" />
+							</rich:componentControl>
+						</h:commandLink>
+						<br/>
+						<h:inputText value="#{filterColumnsBean.column3}" id="inputColumn3" 
+			           	    onclick="event.stopPropagation();">
+			           	    <a4j:ajax event="keyup" render="myTable@body datascroller" ignoreDupResponses="true" oncomplete="focusEndInput(#{rich:element('inputColumn3')})"/>
+			           	</h:inputText>
+					</f:facet>
+		
+					<h:outputText value="#{user.firstName}" />
+				</rich:column>
+				
+				<!-- Last Name Column -->
+				<rich:column id="lastNameColumn"
+					filterExpression="#{fn:containsIgnoreCase(user.lastName, filterColumnsBean.column4)}"
+					sortBy="#{user.lastName}">
+					
+					<f:facet name="header">
+						<h:commandLink value="Last Name " style="color: black;" action="#{sorterColumnsBean.switchColumn4}">
+							<a4j:ajax render="sortLabel4" />
+							<h:outputLabel id="sortLabel4" value=" (#{sorterColumnsBean.column4})" />
+							<rich:componentControl target="myTable" operation="sort">
+								<f:param name="direction" value="lastNameColumn" />
+								<f:param value="" />
+								<f:param name="reset" value="true" />
+							</rich:componentControl>
+						</h:commandLink>
+						<br/>
+						<h:inputText value="#{filterColumnsBean.column4}" id="inputColumn4" 
+			           	    onclick="event.stopPropagation();">
+			           	    <a4j:ajax event="keyup" render="myTable@body datascroller" ignoreDupResponses="true" oncomplete="focusEndInput(#{rich:element('inputColumn4')})"/>
+			           	</h:inputText>
+					</f:facet>
+		
+					<h:outputText value="#{user.lastName}" />
+				</rich:column>
+				
+				<!-- email Column -->
+				<rich:column id="emailColumn"
+					filterExpression="#{fn:containsIgnoreCase(user.email, filterColumnsBean.column5)}"
+					sortBy="#{user.email}">
+					
+					<f:facet name="header">
+						<h:commandLink value="Email " style="color: black;" action="#{sorterColumnsBean.switchColumn5}">
+							<a4j:ajax render="sortLabel5" />
+							<h:outputLabel id="sortLabel5" value=" (#{sorterColumnsBean.column5})" />
+							<rich:componentControl target="myTable" operation="sort">
+								<f:param name="direction" value="emailColumn" />
+								<f:param value="" />
+								<f:param name="reset" value="true" />
+							</rich:componentControl>
+						</h:commandLink>
+						<br/>
+						<h:inputText value="#{filterColumnsBean.column5}" id="inputColumn5" 
+			           	    onclick="event.stopPropagation();">
+			           	    <a4j:ajax event="keyup" render="myTable@body datascroller" ignoreDupResponses="true" oncomplete="focusEndInput(#{rich:element('inputColumn5')})"/>
+			           	</h:inputText>
+					</f:facet>
+		
+					<h:outputText value="#{user.email}" />
+				</rich:column>
+				
+				<f:facet name="footer">
+					<rich:dataScroller id="datascroller" />
+				</f:facet>
+			
+			</rich:dataTable>
+		</h:form>
+		
+		
+		<!-- ################### -->
+		<!-- Selected Info -->
+		<!-- ################### -->
+		<h:panelGroup id="panelUserInfo">
+			<h3>Selected User Info:</h3>
+			
+			<h:panelGroup rendered="#{!empty selectedUserBean.selectedUser}">
+			    <h:panelGrid columns="2">
+		        	<h:outputLabel value="User Id: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.userId}" />
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="User Name: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.userName}" />
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="First Name: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.firstName}" />
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="Last Name: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.lastName}" />
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="Email: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.email}" />
+		        </h:panelGrid>
+			</h:panelGroup>
+		</h:panelGroup>
+		
+		
+		<!-- ################### -->
+		<!-- PopUp -->
+		<!-- ################### -->
+		<h:form id="formPopupUserInfo">
+			<rich:popupPanel id="popupUserInfo" width="250" height="150" resizeable="false" modal="true">
+				<f:facet name="header">
+			    	<h:outputText value="User Info"></h:outputText>
+				</f:facet>
+	
+				<f:facet name="controls">
+					<h:outputLink value="#" onclick="#{rich:component('popupUserInfo')}.hide(); return false;">X</h:outputLink>            
+		        </f:facet>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="User Id: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.userId}" />
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="User Name: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.userName}" />
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="First Name: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.firstName}" />
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="Last Name: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.lastName}" />
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel value="Email: " />
+		        	<h:outputText value="#{selectedUserBean.selectedUser.email}" />
+		        </h:panelGrid>
+		        
+		        
+	        </rich:popupPanel>
+		</h:form>
+	</h:body>
+</body>
+</html>

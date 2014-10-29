@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 public class RichBean implements Serializable {
 
-    private static final long serialVersionUID = -6239437588285327644L;
+    private static final long serialVersionUID = 1L;
 
     private String name;
 
